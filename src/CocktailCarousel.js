@@ -1,7 +1,7 @@
 import { Carousel } from 'react-carousel-minimal';
 
 function CocktailCarousel(props) {
-  console.log(props);
+ console.log(props);
  const data = [];
 
   function populateData() {

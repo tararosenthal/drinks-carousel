@@ -1,44 +1,35 @@
 import './App.css';
 import InputForm from './InputForm';
-import { useState, useLayoutEffect } from 'react';
-// import {getCocktails} from './Utils';
+import { useState } from 'react';
 import Cocktail from './Cocktail';
 import CocktailCarousel from './CocktailCarousel';
 
 function App() {
   const [requestData, setRequestData] = useState();
-  const [responseData, setResponseData] = useState([]);
 
-  const childToParent = ((childData) => {
-    setRequestData(childData);
-  });
-
-  useLayoutEffect(() => {
-    if (requestData) {
+  async function processCocktailRequest(cocktailRequest) {
       let cocktails = [];
-      fetch(`https://thecocktaildb.com/api/json/v1/1/search.php?s=${requestData}`)
+      await fetch(`https://thecocktaildb.com/api/json/v1/1/search.php?s=${cocktailRequest}`)
       .then((response) => response.json())
       .then((data) => {
       for (const index in data.drinks) {
         let cocktail = new Cocktail(data.drinks[index]);
         cocktails.push(cocktail);
       }
-      })
-      .then(() => {
-        setResponseData(cocktails);
+      setRequestData(cocktails);
       })
       .catch((err) => {
         console.log(`error: ${err}`);
       });
-    }
-  }, [requestData]);
+      console.log(requestData);
+  }
 
-  if (!responseData || !requestData) {
+  if (!requestData || requestData.length < 1) {
     return (
       <div className="App">
         <header className="App-header">
           <h1>Which Cocktail?</h1>
-          <InputForm childToParent={childToParent}/>
+          <InputForm processCocktailRequest={processCocktailRequest}/>
         </header>
       </div>
     );
@@ -48,8 +39,8 @@ function App() {
       <div className="App">
         <header className="App-header">
           <h1>Which Cocktail?</h1>
-          <InputForm childToParent={childToParent}/>
-          <CocktailCarousel slides = {responseData}/>
+          <InputForm processCocktailRequest={processCocktailRequest}/>
+          <CocktailCarousel slides = {requestData}/>
         </header>
       </div>
     );

@@ -15,7 +15,7 @@ class InputForm extends React.Component {
     return (
       <form>
           <input type="text" value={this.state.value} onChange={this.handleChange} />
-          <span onClick={() => this.props.childToParent(this.state.value)}>Click Child</span>
+          <span onClick={() => this.props.processCocktailRequest(this.state.value)}>Get Cocktails</span>
       </form>
     );
   }

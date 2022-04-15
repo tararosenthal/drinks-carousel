@@ -1,0 +1,39 @@
+diff --git a/node_modules/react-carousel-minimal/dist/components/Carousel.js b/node_modules/react-carousel-minimal/dist/components/Carousel.js
+index 2833731..2d60db7 100644
+--- a/node_modules/react-carousel-minimal/dist/components/Carousel.js
++++ b/node_modules/react-carousel-minimal/dist/components/Carousel.js
+@@ -73,19 +73,21 @@ function Carousel(_ref) {
+   }, [isPaused, change]);
+ 
+   function scrollTo(el) {
+-    const elLeft = el.offsetLeft + el.offsetWidth;
+-    const elParentLeft = el.parentNode.offsetLeft + el.parentNode.offsetWidth; // check if element not in view
+-
+-    if (elLeft >= elParentLeft + el.parentNode.scrollLeft) {
+-      el.parentNode.scroll({
+-        left: elLeft - elParentLeft,
+-        behavior: "smooth"
+-      });
+-    } else if (elLeft <= el.parentNode.offsetLeft + el.parentNode.scrollLeft) {
+-      el.parentNode.scroll({
+-        left: el.offsetLeft - el.parentNode.offsetLeft,
+-        behavior: "smooth"
+-      });
++    if (data.length !== 1) {
++      const elLeft = el.offsetLeft + el.offsetWidth;
++      const elParentLeft = el.parentNode.offsetLeft + el.parentNode.offsetWidth; // check if element not in view
++
++      if (elLeft >= elParentLeft + el.parentNode.scrollLeft) {
++        el.parentNode.scroll({
++          left: elLeft - elParentLeft,
++          behavior: "smooth"
++        });
++      } else if (elLeft <= el.parentNode.offsetLeft + el.parentNode.scrollLeft) {
++        el.parentNode.scroll({
++          left: el.offsetLeft - el.parentNode.offsetLeft,
++          behavior: "smooth"
++        });
++      }
+     }
+   } //Listens to slide state changes
+ 
