@@ -21,7 +21,6 @@ function App() {
       .catch((err) => {
         console.log(`error: ${err}`);
       });
-      console.log(requestData);
   }
 
   if (!requestData || requestData.length < 1) {
